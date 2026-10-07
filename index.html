@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="BNC Pharma Cuerpo y Salud: cosmética, educación para el autocuidado y bienestar empresarial.">
+<title>BNC Pharma | Cuerpo y Salud</title>
+<style>
+/* PERSONALIZAR colores según el brandbook. Tonos oscuros de apoyo para contraste. */
+:root{--verde:#588b7b;--menta:#8cc29b;--oliva:#889675;--arena:#ecddc0;--azul:#0888b6;--crema:#faf8eb;--tinta:#203d36;--borde:#b1c5bd;--blanco:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;color:var(--tinta);background:var(--crema);font:1rem/1.65 'Plus Jakarta Sans',Arial,sans-serif}
+h1,h2,h3,.marca{font-family:Nunito,'Trebuchet MS',sans-serif;line-height:1.15}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);font-weight:700;letter-spacing:-.04em;margin:18px 0}
+h2{font-size:clamp(1.9rem,4vw,3rem);margin:0 0 22px}
+h3{font-size:1.4rem}
+p{max-width:65ch}
+a{color:inherit;text-underline-offset:5px}
+button,input,select,textarea{font:inherit}
+button,a,input,select,textarea,summary{touch-action:manipulation}
+:focus-visible{outline:3px solid #075c80;outline-offset:5px}
+button,.boton{min-height:48px;cursor:pointer}
+.boton{display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;background:var(--tinta);color:white;border:2px solid var(--tinta);border-radius:6px;text-decoration:none;font-weight:700}
+.secundario{background:transparent;color:var(--tinta)}
+.contenedor{width:min(1160px,92%);margin:auto}
+.salto{position:absolute;top:-100px;left:15px;z-index:10;background:white;padding:12px}
+.salto:focus{top:10px}
+header{position:sticky;top:0;z-index:5;background:var(--crema);border-bottom:1px solid var(--borde)}
+.cabecera{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 0}
+.marca{text-decoration:none;font-size:1.6rem;font-weight:700;white-space:nowrap}
+.marca small{display:block;font:.75rem/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{font-size:.85rem;text-decoration:none}
+nav a:hover{text-decoration:underline}
+.menu{display:none;border:1px solid var(--tinta);background:transparent;border-radius:5px;padding:8px 14px}
+.hero{padding:80px 0;display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center}
+.etiqueta{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.acciones{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.visual{background:var(--menta);border-radius:50% 50% 8px 8px;min-height:400px;display:grid;place-items:center;position:relative;overflow:hidden}
+.visual:before,.visual:after{content:'';position:absolute;width:190px;height:90px;background:var(--verde);border-radius:0 100%;transform:rotate(-35deg);left:20px;top:90px}
+.visual:after{left:auto;right:15px;top:220px;transform:rotate(145deg);background:var(--oliva)}
+.visual strong{position:relative;z-index:1;text-align:center;font:700 2.1rem/1.3 Nunito,Arial,sans-serif;background:var(--crema);padding:40px 25px;border-radius:8px;box-shadow:0 18px 40px #203d3620}
+.visual span{display:block;font:.85rem/1.5 Arial,sans-serif;margin-top:15px}
+section{padding:70px 0;border-top:1px solid var(--borde)}
+.fondo{background:white}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.dos{grid-template-columns:repeat(2,1fr)}
+.tarjeta{padding:28px;border:1px solid var(--borde);border-radius:8px;background:white}
+.numero{font-size:.85rem;color:var(--tinta);border-bottom:3px solid var(--menta);padding-bottom:6px}
+.nota{font-size:.9rem}
+.banda{background:var(--arena)}
+.filtros{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.filtros button{border:1px solid var(--tinta);padding:10px 20px;background:white;border-radius:25px;color:var(--tinta)}
+.filtros button[aria-pressed="true"]{background:var(--tinta);color:white}
+.extractos{display:flex;flex-wrap:wrap;gap:12px;padding:0;list-style:none}
+.extractos li{background:white;border:1px solid var(--borde);padding:12px 18px;border-radius:6px}
+details{border-top:1px solid var(--borde);padding:20px 0}
+summary{cursor:pointer;font-weight:700}
+form{background:white;border:1px solid var(--borde);padding:28px;border-radius:8px}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+label{display:block;font-weight:700;font-size:.9rem}
+input,select,textarea{width:100%;padding:12px;border:1px solid #627970;border-radius:4px;background:white;color:var(--tinta);margin-top:6px}
+textarea{min-height:110px;resize:vertical}
+.ancho{grid-column:1/-1}
+.resultado{margin-top:24px;padding:24px;background:var(--crema);border:1px solid var(--borde)}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+footer{background:var(--tinta);color:white;padding:40px 0}
+.pie{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+[hidden]{display:none!important}
+@media(max-width:1000px){
+  .cabecera{flex-wrap:wrap}
+  .menu{display:block}
+  .js nav{display:none;width:100%;flex-direction:column}
+  .js nav.abierto{display:flex}
+  nav a{padding:8px}
+  .hero{gap:25px}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:650px){
+  .hero{grid-template-columns:1fr;padding:45px 0}
+  .visual{min-height:280px}
+  .grid,.dos,.campos{grid-template-columns:1fr}
+  .ancho{grid-column:auto}
+  section{padding:45px 0}
+  form,.tarjeta{padding:22px}
+  h1{font-size:2.8rem}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body id="inicio">
+<a class="salto" href="#contenido">Saltar al contenido</a>
+
+<header>
+  <div class="contenedor cabecera">
+    <!-- PERSONALIZAR: sustituir la marca tipográfica por el logo oficial con alt, sin deformarlo. -->
+    <a class="marca" href="#inicio">
+      BNC Pharma
+      <small>Cuerpo y Salud</small>
+    </a>
+    <button class="menu" id="menu" type="button"
+      aria-controls="navegacion" aria-expanded="false" hidden>
+      Menú
+    </button>
+    <nav id="navegacion" aria-label="Navegación principal">
+      <a href="#marca">Nuestra marca</a>
+      <a href="#productos">Productos</a>
+      <a href="#educacion">Educación</a>
+      <a href="#bienestar">Bienestar empresarial</a>
+      <a href="#aliados">Aliados</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <div class="contenedor hero">
+    <div>
+      <span class="etiqueta">Naturaleza · Conocimiento · Autocuidado</span>
+      <h1>Cuidarte empieza por conocer.</h1>
+      <p>Descubre BNC Pharma: un espacio para explorar nuestra cosmética, comprender sus ingredientes y acercar el autocuidado a tu vida y a tu organización.</p>
+      <div class="acciones">
+        <a class="boton" href="#contacto" data-intencion="asesoria">Solicitar asesoría</a>
+        <a class="boton secundario" href="#productos">Conocer Reconsativa</a>
+      </div>
+    </div>
+    <!-- PERSONALIZAR imágenes: esta composición es decorativa, no representa un envase real. -->
+    <div class="visual" aria-hidden="true">
+      <strong>
+        BNC Pharma
+        <span>Cuerpo y Salud<br>Conocimiento para el autocuidado</span>
+      </strong>
+    </div>
+  </div>
+
+  <!-- PERSONALIZAR textos y datos de la empresa únicamente con información verificada. -->
+  <section id="marca" class="fondo">
+    <div class="contenedor">
+      <span class="etiqueta">Nuestra marca</span>
+      <h2>Un vínculo entre ciencia y naturaleza.</h2>
+      <div class="grid dos">
+        <p>BNC Pharma es la marca de Bienestar Natural Colombia SAS. Fundada por Sandra Cuervo, química farmacéutica y especialista en Ciencias Cosméticas, integra el interés por los ingredientes naturales con la educación para el autocuidado.</p>
+        <p>Queremos que conozcas nuestros productos y entiendas cómo se construye una propuesta cosmética: desde la selección de materias primas hasta la formulación y la evaluación de calidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos">
+    <div class="contenedor">
+      <span class="etiqueta">Nuestra línea cosmética</span>
+      <h2>Conoce Reconsativa.</h2>
+      <div class="grid dos">
+        <article class="tarjeta">
+          <span class="numero">01 / GEL</span>
+          <h3>Reconsativa Gel</h3>
+          <p>Una presentación en gel que incorpora aloe vera, caléndula, menta, CBD, castaño de Indias y hamamelis.</p>
+          <a href="#extractos">Explorar sus ingredientes</a>
+          <div class="acciones">
+            <a class="boton secundario" href="#contacto" data-intencion="cotizacion">Solicitar cotización</a>
+          </div>
+        </article>
+        <article class="tarjeta">
+          <span class="numero">02 / CREMA</span>
+          <h3>Reconsativa Crema</h3>
+          <p>Una presentación en crema con CBD, castaño de Indias, hamamelis, manzanilla, árnica y extracto de uva.</p>
+          <a href="#extractos">Explorar sus ingredientes</a>
+          <div class="acciones">
+            <a class="boton secundario" href="#contacto" data-intencion="cotizacion">Solicitar cotización</a>
+          </div>
+        </article>
+      </div>
+      <p class="nota">Consulta el etiquetado de cada producto para conocer su composición completa e instrucciones de uso. Este sitio presenta productos cosméticos sin atribuirles tratamientos para enfermedades.</p>
+    </div>
+  </section>
+
+  <section id="extractos" class="banda">
+    <div class="contenedor">
+      <span class="etiqueta">El origen de nuestros ingredientes</span>
+      <h2>Botánicos para conocer mejor.</h2>
+      <p>Explora los extractos y otros ingredientes de origen vegetal por presentación. Esta lista no sustituye el listado INCI del envase.</p>
+      <div class="filtros" role="group" aria-label="Filtrar ingredientes por producto">
+        <button type="button" data-filtro="todos" aria-pressed="true">Ambos productos</button>
+        <button type="button" data-filtro="gel" aria-pressed="false">Gel</button>
+        <button type="button" data-filtro="crema" aria-pressed="false">Crema</button>
+      </div>
+      <p id="estado-filtro" role="status">Ingredientes de ambos productos.</p>
+      <ul class="extractos">
+        <li data-productos="gel">Aloe vera</li>
+        <li data-productos="gel">Caléndula</li>
+        <li data-productos="gel">Menta</li>
+        <li data-productos="gel crema">CBD</li>
+        <li data-productos="gel crema">Castaño de Indias</li>
+        <li data-productos="gel crema">Hamamelis</li>
+        <li data-productos="crema">Manzanilla</li>
+        <li data-productos="crema">Árnica</li>
+        <li data-productos="crema">Extracto de uva</li>
+      </ul>
+      <p class="nota">La presencia de un ingrediente no demuestra por sí sola un beneficio del producto terminado.</p>
+    </div>
+  </section>
+
+  <section id="educacion" class="fondo">
+    <div class="contenedor">
+      <span class="etiqueta">Educación y autocuidado</span>
+      <h2>Preguntar también es cuidarse.</h2>
+      <p>Explora las preguntas que orientan nuestros contenidos educativos.</p>
+      <details>
+        <summary>Adherencia terapéutica: ¿qué conversar con el equipo de salud?</summary>
+        <p>Comparte tus dudas sobre las indicaciones, las dificultades para seguirlas y los cambios que has notado. La educación de BNC Pharma busca facilitar estas conversaciones; no reemplaza una consulta ni define tratamientos.</p>
+      </details>
+      <details>
+        <summary>Cuidado de la piel: ¿qué información buscar en un cosmético?</summary>
+        <p>Conoce el propósito del producto, su composición, instrucciones y advertencias. Pregunta por una rutina adaptada a tus necesidades y diferencia el cuidado cosmético de la atención médica.</p>
+      </details>
+      <details>
+        <summary>Desarrollo de productos: ¿qué hay detrás de una fórmula?</summary>
+        <p>Nuestros contenidos abordarán la selección de ingredientes, su compatibilidad, la textura, la estabilidad y la evaluación de calidad. Una fórmula requiere valorar el conjunto, más allá de sus componentes individuales.</p>
+      </details>
+      <details>
+        <summary>Materias primas: ¿qué significa conocer un extracto?</summary>
+        <p>Identificar la planta, la parte utilizada, el tipo de extracto y la información técnica permite formular preguntas más precisas. Los resultados de un ingrediente no se trasladan automáticamente a cualquier producto que lo contenga.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="bienestar">
+    <div class="contenedor">
+      <span class="etiqueta">Bienestar empresarial</span>
+      <h2>Acercamos el autocuidado a tu equipo.</h2>
+      <div class="grid dos">
+        <article class="tarjeta">
+          <h3>Charlas educativas</h3>
+          <p>Espacios sobre adherencia terapéutica y autocuidado para colaboradores. Conversemos sobre tu público y los temas que necesita comprender.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>Asesoría para empresas</h3>
+          <p>Orientación para explorar contenidos de bienestar y conocer nuestra oferta cosmética según los objetivos de tu organización.</p>
+        </article>
+      </div>
+      <div class="acciones">
+        <a class="boton" href="#contacto" data-intencion="cotizacion">Solicitar una propuesta</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="aliados" class="banda">
+    <div class="contenedor">
+      <span class="etiqueta">Aliados</span>
+      <h2>Construyamos una conversación.</h2>
+      <p>Invitamos a spas, centros de estética y organizaciones de salud vinculadas al cuidado del adulto mayor, riesgo cardiovascular y cuidados paliativos a explorar oportunidades de educación y autocuidado.</p>
+      <p>El alcance de cada colaboración se define con la organización y su equipo profesional.</p>
+      <a class="boton secundario" href="#contacto">Conversar sobre una alianza</a>
+    </div>
+  </section>
+
+  <section id="contacto" class="fondo">
+    <div class="contenedor">
+      <span class="etiqueta">Contacto</span>
+      <h2>Cuéntanos qué necesitas.</h2>
+      <p>Prepara una solicitud de asesoría o cotización y elige una fecha preferida. El calendario no indica disponibilidad ni confirma una cita.</p>
+
+      <!-- PERSONALIZAR datos de contacto y conectar un canal real antes de habilitar envíos. -->
+      <form id="solicitud">
+        <p id="aviso">Esta práctica genera un resumen en tu navegador. No envía ni guarda tus datos. No incluyas información clínica ni otros datos sensibles.</p>
+        <div class="campos">
+          <div>
+            <label for="nombre">Nombre *</label>
+            <input id="nombre" name="nombre" autocomplete="name" maxlength="100" required>
+          </div>
+          <div>
+            <label for="correo">Correo electrónico *</label>
+            <input id="correo" name="correo" type="email" autocomplete="email" maxlength="150" required>
+          </div>
+          <div>
+            <label for="empresa">Organización (opcional)</label>
+            <input id="empresa" name="empresa" autocomplete="organization" maxlength="150">
+          </div>
+          <div>
+            <label for="tipo">Tipo de solicitud *</label>
+            <select id="tipo" name="tipo" required>
+              <option value="asesoria">Asesoría</option>
+              <option value="cotizacion">Cotización</option>
+            </select>
+          </div>
+          <div>
+            <label for="fecha">Fecha preferida (opcional)</label>
+            <input id="fecha" name="fecha" type="date" aria-describedby="fecha-ayuda">
+            <small id="fecha-ayuda">Fecha tentativa, sujeta a confirmación.</small>
+          </div>
+          <div>
+            <label for="hora">Hora preferida (opcional)</label>
+            <input id="hora" name="hora" type="time">
+            <small>Hora de Colombia.</small>
+          </div>
+          <div class="ancho">
+            <label for="mensaje">¿Qué necesitas? *</label>
+            <textarea id="mensaje" name="mensaje" maxlength="1500" required></textarea>
+          </div>
+        </div>
+        <div class="acciones">
+          <button class="boton" type="submit" aria-describedby="aviso">Generar resumen</button>
+          <button class="boton secundario" type="reset">Limpiar</button>
+        </div>
+        <noscript>
+          <p>Activa JavaScript para generar el resumen. No se realizarán envíos.</p>
+        </noscript>
+      </form>
+
+      <div class="resultado" id="resultado" hidden>
+        <h3 id="titulo-resumen" tabindex="-1">Solicitud preparada, sin enviar</h3>
+        <pre id="resumen"></pre>
+        <button class="boton secundario" id="copiar" type="button">Copiar resumen</button>
+        <p id="estado-copia" role="status"></p>
+        <p class="nota">Copiar el resumen no lo envía. Para continuar se necesita un canal oficial de contacto, pendiente de configurar.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor pie">
+    <div class="marca">
+      BNC Pharma
+      <small>Cuerpo y Salud</small>
+      <p class="nota">Bienestar Natural Colombia SAS · Medellín, Colombia</p>
+    </div>
+    <div>
+      <a href="#inicio">Volver al inicio</a>
+      <p class="nota">Educación para el autocuidado · Cosmética</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+
+// PERSONALIZAR: no hay backend, reservas, almacenamiento ni servicios externos.
+// Impedir navegación del formulario incluso si falla otra interacción.
+const formulario = document.getElementById('solicitud');
+
+formulario.addEventListener('submit', event => {
+  event.preventDefault();
+  actualizarFecha();
+
+  if (!formulario.reportValidity()) return;
+
+  const datos = new FormData(formulario);
+  const tipo = document.getElementById('tipo');
+  const fecha = datos.get('fecha');
+  const fechaTexto = fecha
+    ? fecha.split('-').reverse().join('/')
+    : 'No indicada';
+
+  const texto = [
+    'BNC Pharma — Solicitud sin enviar',
+    'Nombre: ' + datos.get('nombre'),
+    'Correo: ' + datos.get('correo'),
+    'Organización: ' + (datos.get('empresa') || 'No indicada'),
+    'Solicitud: ' + tipo.options[tipo.selectedIndex].text,
+    'Fecha preferida: ' + fechaTexto,
+    'Hora preferida (Colombia): ' + (datos.get('hora') || 'No indicada'),
+    'Necesidad: ' + datos.get('mensaje')
+  ].join('\n');
+
+  // textContent evita interpretar los datos ingresados como HTML.
+  document.getElementById('resumen').textContent = texto;
+  document.getElementById('resultado').hidden = false;
+  document.getElementById('estado-copia').textContent = '';
+  document.getElementById('titulo-resumen').focus();
+});
+
+document.documentElement.classList.add('js');
+
+const menu = document.getElementById('menu');
+const nav = document.getElementById('navegacion');
+menu.hidden = false;
+
+function cerrarMenu() {
+  nav.classList.remove('abierto');
+  menu.setAttribute('aria-expanded', 'false');
+}
+
+menu.addEventListener('click', () => {
+  const abierto = menu.getAttribute('aria-expanded') !== 'true';
+  menu.setAttribute('aria-expanded', String(abierto));
+  nav.classList.toggle('abierto', abierto);
+});
+
+nav.addEventListener('click', event => {
+  if (event.target.closest('a')) cerrarMenu();
+});
+
+document.addEventListener('keydown', event => {
+  if (
+    event.key === 'Escape' &&
+    menu.getAttribute('aria-expanded') === 'true'
+  ) {
+    cerrarMenu();
+    menu.focus();
+  }
+});
+
+document.querySelectorAll('[data-intencion]').forEach(enlace => {
+  enlace.addEventListener('click', () => {
+    document.getElementById('tipo').value = enlace.dataset.intencion;
+  });
+});
+
+document.querySelectorAll('[data-filtro]').forEach(boton => {
+  boton.addEventListener('click', () => {
+    const filtro = boton.dataset.filtro;
+
+    document.querySelectorAll('[data-filtro]').forEach(item => {
+      item.setAttribute('aria-pressed', String(item === boton));
+    });
+
+    document.querySelectorAll('[data-productos]').forEach(item => {
+      item.hidden =
+        filtro !== 'todos' &&
+        !item.dataset.productos.split(' ').includes(filtro);
+    });
+
+    document.getElementById('estado-filtro').textContent =
+      filtro === 'todos'
+        ? 'Ingredientes de ambos productos.'
+        : 'Ingredientes de Reconsativa ' +
+          (filtro === 'gel' ? 'Gel.' : 'Crema.');
+  });
+});
+
+function actualizarFecha() {
+  const partes = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Bogota',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(new Date());
+
+  const valor = tipo => partes.find(parte => parte.type === tipo).value;
+
+  document.getElementById('fecha').min =
+    valor('year') + '-' + valor('month') + '-' + valor('day');
+}
+
+actualizarFecha();
+
+formulario.addEventListener('input', () => {
+  document.getElementById('resultado').hidden = true;
+});
+
+formulario.addEventListener('change', () => {
+  document.getElementById('resultado').hidden = true;
+});
+
+formulario.addEventListener('reset', () => {
+  document.getElementById('resultado').hidden = true;
+  document.getElementById('estado-copia').textContent = '';
+});
+
+document.getElementById('copiar').addEventListener('click', async () => {
+  const estado = document.getElementById('estado-copia');
+
+  try {
+    if (!navigator.clipboard || !window.isSecureContext) {
+      throw new Error('Copia manual');
+    }
+
+    await navigator.clipboard.writeText(
+      document.getElementById('resumen').textContent
+    );
+
+    estado.textContent = 'Resumen copiado. No se ha enviado.';
+  } catch (error) {
+    estado.textContent =
+      'La copia automática no está disponible. Selecciona el texto del resumen y cópialo manualmente.';
+  }
+});
+</script>
+</body>
+</html>
